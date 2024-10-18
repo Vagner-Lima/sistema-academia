@@ -9,7 +9,6 @@ def adicionar_aluno(cursor, db, alunoinfo):
     db.close() #Colocar no final do codigo!!! fecha a conexao com a database
     print("Aluno adicionado com sucesso!")
 
-
 def create_table(cursor, db):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS alunos(

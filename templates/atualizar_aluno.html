@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Aluno</title>
+    <link href="../static/styles/atualizar_aluno.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Atualizar Aluno</h1>
+
+        <!-- Exibir mensagens de confirmação -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('atualizar_aluno', aluno_id=aluno.id) }}">
+            <div class="form-group">
+                <label for="primeiroNome">Primeiro Nome</label>
+                <input type="text" class="form-control" name="primeiroNome" value="{{ aluno.primeiroNome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="ultimoNome">Último Nome</label>
+                <input type="text" class="form-control" name="ultimoNome" value="{{ aluno.ultimoNome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" value="{{ aluno.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" name="telefone" value="{{ aluno.telefone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" name="cpf" value="{{ aluno.cpf }}" required>
+            </div>
+            <div class="form-group">
+                <label for="plano">Plano</label>
+                <select class="form-control" name="plano" required>
+                    <option value="Matutino" {% if aluno.plano == 'Matutino' %}selected{% endif %}>Matutino</option>
+                    <option value="Vespertino" {% if aluno.plano == 'Vespertino' %}selected{% endif %}>Vespertino</option>
+                    <option value="Noturno" {% if aluno.plano == 'Noturno' %}selected{% endif %}>Noturno</option>
+                    <option value="Livre" {% if aluno.plano == 'Livre' %}selected{% endif %}>Livre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="datamatricula">Data da Matrícula</label>
+                <input type="date" class="form-control" name="datamatricula" value="{{ aluno.datamatricula }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar Aluno</button>
+            <a href="{{ url_for('ver_alunos') }}" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

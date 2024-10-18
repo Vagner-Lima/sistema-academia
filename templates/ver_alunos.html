@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Alunos - Sistema Academia</title>
+    <link href="../static/styles/ver_alunos.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Lista de Alunos</h1>
+        <a href="/" class="btn btn-primary mb-3">Voltar para a Página Inicial</a>
+        
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Primeiro Nome</th>
+                    <th>Último Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>CPF</th>
+                    <th>Plano</th>
+                    <th>Data da Matrícula</th>
+                    <th>Ações</th> <!-- Adicionando uma coluna de Ações -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.id }}</td>
+                    <td>{{ aluno.primeiroNome }}</td>
+                    <td>{{ aluno.ultimoNome }}</td>
+                    <td>{{ aluno.email }}</td>
+                    <td>{{ aluno.telefone }}</td>
+                    <td>{{ aluno.cpf }}</td>
+                    <td>{{ aluno.plano }}</td>
+                    <td>{{ aluno.datamatricula }}</td>
+                    <td>
+                        <form action="{{ url_for('remover_aluno', aluno_id=aluno.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        </form>
+                        <a href="{{ url_for('atualizar_aluno', aluno_id=aluno.id) }}" class="btn btn-warning btn-sm">Atualizar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

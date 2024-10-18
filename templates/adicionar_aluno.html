@@ -8,8 +8,19 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Adicionar Aluno</h1>
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <div class="d-flex justify-content-center flex-row align-items-center container">
+    
     <form action="/adicionar_aluno" method="POST">
+        <h1>Adicionar Aluno</h1>
         <label for="primeiroNome">Primeiro Nome:</label><br>
         <input type="text" id="primeiroNome" name="primeiroNome" required><br><br>
 
@@ -34,6 +45,12 @@
         </select><br><br>
 
         <input type="submit" value="Adicionar Aluno">
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3 d-flex justify-content-center">Voltar</a>
     </form>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

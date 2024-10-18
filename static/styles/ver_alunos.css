@@ -1,0 +1,15 @@
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave */
+}
+.container {
+    margin-top: 50px; /* Espaço no topo */
+}
+h1 {
+    margin-bottom: 30px; /* Espaço abaixo do título */
+}
+.btn {
+    margin-right: 5px; /* Espaço à direita dos botões */
+}
+.table {
+    background-color: #ffffff; /* Fundo branco para a tabela */
+}
