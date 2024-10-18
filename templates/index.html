@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Academia - CRUD</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1>Sistema Academia</h1>
+        <p>Gerencie seus alunos com facilidade</p>
+
+        <!--Botões CRUD-->
+        <div class="row mt-4">
+            <!--Botão Adicionar Aluno-->
+            <div class="col-md-3">
+                <button class="btn btn-success btn-lg btn-block" onclick="location.href='/adicionar_aluno'">
+                    Adicionar Aluno
+                </button>
+            </div>
+
+            <!--Botão Ver Alunos (Read)-->
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg btn-block" onclick="location.href='/ver_alunos'">
+                    Ver Alunos
+                </button>
+            </div>
+
+            <!--Botão Atualizar Aluno (Update)-->
+            <div class="col-md-3">
+                <button class="btn btn-warning btn-lg btn-block" onclick="location.href='/atualizar_aluno'">
+                    Atualizar Aluno
+                </button>
+            </div>
+
+            <!--Botão Remover Aluno (Delete)-->
+            <div class="col-md-3">
+                <button class="btn btn-danger btn-lg btn-block" onclick="location.href='/remover_aluno'">
+                    Remover Aluno
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

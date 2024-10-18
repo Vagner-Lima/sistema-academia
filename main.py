@@ -2,6 +2,10 @@ from datetime import datetime
 import mysql.connector;
 import os
 from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request, url_for
+from commands import adicionar_aluno, create_table
+
+app = Flask(__name__)
 
 load_dotenv() # Carrega o .env onde fica as variaveis locais
 
@@ -11,37 +15,34 @@ config = {
     "user": os.getenv("user"),
     "database": os.getenv("database") # Coleta as informacoes do .env para a conexao com a database
 }
+db = mysql.connector.connect(**config) # Conecta com a database SQL
+cursor = db.cursor() # Cria um cursor. Necessario para CRUD
+diaHJ = datetime.now().strftime('%Y-%m-%d')
 
-connect = mysql.connector.connect(**config) # Conecta com a database SQL
 
-cursor = connect.cursor() # Cria um cursor. Necessario para CRUD
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-diaHJ = datetime.now().date()
+@app.route('/adicionar_aluno', methods=['GET','POST'])
+def adicionar():
+    db = mysql.connector.connect(**config) # Conecta com a database SQL
+    cursor = db.cursor() # Cria um cursor. Necessario para CRUD
+    if request.method == 'POST':
+        alunoinfo = {
+            'primeiroNome': request.form['primeiroNome'],
+            'ultimoNome': request.form['ultimoNome'],
+            'email': request.form['email'],
+            'telefone': request.form['telefone'],
+            'cpf': request.form['cpf'],
+            'plano': request.form['plano'],
+            'datamatricula': diaHJ
+        }
+        adicionar_aluno(cursor, db, alunoinfo)  # Chama a função do outro arquivo
+        return redirect(url_for('home'))
+    return render_template("adicionar_aluno.html")
 
-def adicionarAluno():  # Função para adicionar um novo aluno na database
-    comando = ("""
-    INSERT INTO alunos
-    (primeiroNome, ultimoNome, email, telefone, cpf, plano, datamatricula)
-    VALUES (%(primeiroNome)s, %(ultimoNome)s, %(email)s, %(telefone)s, %(cpf)s, %(plano)s, %(datamatricula)s)
-    """)  # Comando SQL para adicionar o aluno
-    
-    # Coletar os dados do aluno e colocá-los em um dicionário
-    alunoinfo = {
-        'primeiroNome': input("Insira seu primeiro nome: "),
-        'ultimoNome': input("Insira seu último nome: "),
-        'email': input("Insira seu email: "),
-        'telefone': input("Insira seu telefone: "),
-        'cpf': input("Insira seu CPF: "),
-        'plano': input("Insira o plano escolhido: "),
-        'datamatricula': diaHJ
-    }
-    
-    # Executa o comando SQL com os valores fornecidos
-    cursor.execute(comando, alunoinfo)
-    connect.commit()  # Salva as informações na database
-    
-    print("Aluno adicionado com sucesso!")
-adicionarAluno()
 
-cursor.close() #Colocar no final do codigo!!! fecha a conexao do cursor
-connect.close() #Colocar no final do codigo!!! fecha a conexao com a database
+if __name__ == '__main__':
+    create_table(cursor,db)
+    app.run(debug=True)
